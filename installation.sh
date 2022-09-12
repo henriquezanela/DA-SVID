@@ -1,6 +1,6 @@
 #!/bin/bash
 
-slp=2
+slp=1
 
 function DA-SVID_inst(){
 skip_SPIRE=''
@@ -8,7 +8,7 @@ skip_DOCKER=''
 skip_K8S=''
 
 ### Reading config file and picking options to SKIP
-echo -e "\n###Reading config file to pick what to install###\n"
+echo -e "###Reading config file to pick what to install###\n"
 sleep $slp
 while IFS= read -r LINE
 do
@@ -38,30 +38,30 @@ do
     continue
   fi
 done < "config"
-echo -e "\n###DONE###\n"
+echo -e "###DONE###\n"
 
 ### Installation section 
 LIB_PATH=$(pwd)"/lib"
 
 if [ $skip_SPIRE == 'FALSE' ]; then
-  echo -e "\n###Begin SPIRE installation###\n"
+  echo -e "###Begin SPIRE installation###\n"
   sleep $slp
   sudo bash $LIB_PATH/install_spire.sh
-  echo -e "\n###SPIRE installed###\n"
+  echo -e "###SPIRE installed###\n"
   sleep $slp
 fi
 if [ $skip_DOCKER == 'FALSE' ]; then
-  echo -e "\n###Begin DOCKER installation###\n"
+  echo -e "###Begin DOCKER installation###\n"
   sleep $slp
   sudo bash $LIB_PATH/install_docker.sh
-  echo -e "\n###DOCKER installed###\n"
+  echo -e "###DOCKER installed###\n"
   sleep $slp
 fi
 if [ $skip_K8S == 'FALSE' ]; then
-  echo -e "\n###Begin Minikube installation###\n"
+  echo -e "###Begin Minikube installation###\n"
   sleep $slp
   sudo bash $LIB_PATH/install_k8s_spire.sh
-  echo -e "\n###Minikube installed###\n"
+  echo -e "###Minikube installed###\n"
   sleep $slp
 fi
 }
@@ -79,9 +79,8 @@ else
   trap "/spire directory not found. Is SPIRE installed? Closing application..." EXIT
 fi
 
-echo -e "\n###Add ${USER} to docker group with root privileges###\n"
-sleep $slp
-sudo usermod -aG docker $USER
-su - $USER
-echo -e "\n###${USER} added successfully###\n"
-sleep $slp
+echo -e "###Add your user to docker group with root privileges###\n"
+echo -e "Copy the commands below and run them in another terminal"
+echo 'sudo usermod -aG docker $USER'
+echo 'su - $USER'
+read -rsn1 -p"\nNow everything should be fine."
