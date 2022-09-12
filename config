@@ -1,0 +1,15 @@
+##########################
+Skip SPIRE Installation=FALSE
+Skip DOCKER Installation=FALSE
+Skip K8S Installation=FALSE
+##########################
+####Values here are examples (randomly generated) ####
+CLIENT_ID=PmoMOqvodfO90rz7lXuL
+CLIENT_SECRET=nwYvTLIC0EbRfy1bEq87O-5ONvlqrjSIPjk80Qud
+OKTA_DEVELOPER_CODE=12345678
+HOSTIP=255.255.255.255
+##########################
+##### DO NOT CHANGE ######
+Asserting-wl port=8443
+Target-wl port=8444
+Middle-tier-wl port=8445
