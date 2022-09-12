@@ -20,6 +20,7 @@ fi
 sudo mkdir $DESTINATION_FOLDER
 sudo git clone https://github.com/marques-ma/DASVID_PoC_V0 -b PoC_ZKP $DESTINATION_FOLDER
 }
+create_new_directory
 
 check exist_.cfg(){
 CFG_PATH="/${DESTINATION_FOLDER}/Assertingwl-mTLS/.cfg"
@@ -45,7 +46,7 @@ fi
 exist_.cfg
 
 ### Grab values from config and change in .cfg
-CFG_PATH="${DESTINATION_FOLDER}/subject_workload/.cfg"
+CFG_PATH="/${DESTINATION_FOLDER}/subject_workload/.cfg"
 
 if test -f "$CFG_PATH"; then
   while IFS= read -r LINE
