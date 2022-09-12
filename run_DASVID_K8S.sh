@@ -1,20 +1,48 @@
 #!/bin/bash
 
 set -e
-SH_FOLDER=$PWD
+BASE_DIR=$PWD #Save current directory
+DESTINATION_FOLDER="DASVID_POC_K8S"
 
 ### Start SPIRE environment
-sudo cp $LIB_PATH/start_spire_env.sh /spire
-sudo bash /spire/start_spire_env.sh
+sudo cp $BASE_DIR/lib/start_spire_env.sh /spire
+echo -e "\n\nCopy the commands below and run them in another terminal"
+echo "cd /spire"
+echo "sudo bash start_spire_env.sh\n"
+read -rsn1 -p"Now press any key to continue... "
 
 ### Create directory
-DESTINATION_FOLDER="DASVID_POC_K8S"
+create_new_directory(){
 cd /
 if [ -d $DESTINATION_FOLDER ]; then
-  sudo mv $DESTINATION_FOLDER "/old_${DESTINATION_FOLDER}"
+  sudo mv $DESTINATION_FOLDER / "old_$(DESTINATION_FOLDER)"
 fi
 sudo mkdir $DESTINATION_FOLDER
 sudo git clone https://github.com/marques-ma/DASVID_PoC_V0 -b PoC_ZKP $DESTINATION_FOLDER
+}
+
+check exist_.cfg(){
+CFG_PATH="/${DESTINATION_FOLDER}/Assertingwl-mTLS/.cfg"
+if [ ! -f "$CFG_PATH" ]; then
+  trap "$CFG_PATH file does not exist." EXIT
+fi
+
+CFG_PATH="/${DESTINATION_FOLDER}/middle-tier/.cfg"
+if [ ! -f "$CFG_PATH" ]; then
+  trap "$CFG_PATH file does not exist." EXIT
+fi
+
+CFG_PATH="/${DESTINATION_FOLDER}/subject_workload/.cfg"
+if [ ! -f "$CFG_PATH" ]; then
+  trap "$CFG_PATH file does not exist." EXIT
+fi
+
+CFG_PATH="/${DESTINATION_FOLDER}/target_workload/.cfg"
+if [ ! -f "$CFG_PATH" ]; then
+  trap "$CFG_PATH file does not exist." EXIT
+fi
+}
+exist_.cfg
 
 ### Grab values from config and change in .cfg
 CFG_PATH="${DESTINATION_FOLDER}/subject_workload/.cfg"
@@ -62,25 +90,25 @@ if test -f "$CFG_PATH"; then
     else
       continue
     fi
-  done < "${SH_FOLDER}/config"
+  done < "${BASE_DIR}/config"
 else
   trap ".cfg file not found in ${CFG_PATH}." EXIT
 fi
 
 ### Building Docker images
 echo "Building Docker images."
-sudo bash $SH_FOLDER/k8s/build_containers.sh
+sudo bash $BASE_DIR/k8s/build_containers.sh
 sleep 2
 
 ### Running startk8s.sh
 echo "Running startk8s"
-sudo bash $SH_FOLDER/k8s/startk8s.sh
+sudo bash $BASE_DIR/k8s/startk8s.sh
 
 ### Create DASVID entries on kubernetes
-bash $SH_FOLDER/lib/dasvid_entries.sh
+bash $BASE_DIR/lib/dasvid_entries.sh
 
 ### Running startapp.sh
-sudo bash $SH_FOLDER/lib/startapp.sh
+sudo bash $BASE_DIR/lib/startapp.sh
 
 #Run this for each asserting,middle tier, subject, target wl with proper ports and pod names
 #kubectl port-forward --address localhost,<IP> pod/<PODNAME> PORT:PORT

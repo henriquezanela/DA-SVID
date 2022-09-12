@@ -6,11 +6,14 @@ DESTINATION_FOLDER="DASVID_POC_DOCKER"
 
 ### Start SPIRE environment
 sudo cp $BASE_DIR/lib/start_spire_env.sh /spire
-# sudo bash /spire/start_spire_env.sh & #Must be another terminal to run without errors
+echo -e "\n\nCopy the commands below and run them in another terminal"
+echo "cd /spire"
+echo "sudo bash start_spire_env.sh\n"
+read -rsn1 -p"Now press any key to continue... "
 ##########
 
 ### Create directory
-create new_directory(){
+create_new_directory(){
 cd /
 if [ -d $DESTINATION_FOLDER ]; then
   sudo mv $DESTINATION_FOLDER / "old_$(DESTINATION_FOLDER)"
@@ -18,7 +21,7 @@ fi
 sudo mkdir $DESTINATION_FOLDER
 sudo git clone https://github.com/marques-ma/DASVID_PoC_V0 -b docker_vr $DESTINATION_FOLDER
 }
-new_directory
+create_new_directory
 
 check exist_.cfg(){
 CFG_PATH="/${DESTINATION_FOLDER}/Assertingwl-mTLS/.cfg"
