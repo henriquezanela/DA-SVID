@@ -8,8 +8,9 @@ DESTINATION_FOLDER="DASVID_POC_K8S"
 sudo cp $BASE_DIR/lib/start_spire_env.sh /spire
 echo -e "\n\nCopy the commands below and run them in another terminal"
 echo "cd /spire"
-echo "sudo bash start_spire_env.sh\n"
+echo "sudo bash start_spire_env.sh"
 read -rsn1 -p"Now press any key to continue... "
+##########
 
 ### Create directory
 create_new_directory(){
@@ -22,7 +23,7 @@ sudo git clone https://github.com/marques-ma/DASVID_PoC_V0 -b PoC_ZKP $DESTINATI
 }
 create_new_directory
 
-check exist_.cfg(){
+check_exist_.cfg(){
 CFG_PATH="/${DESTINATION_FOLDER}/Assertingwl-mTLS/.cfg"
 if [ ! -f "$CFG_PATH" ]; then
   trap "$CFG_PATH file does not exist." EXIT
@@ -43,7 +44,7 @@ if [ ! -f "$CFG_PATH" ]; then
   trap "$CFG_PATH file does not exist." EXIT
 fi
 }
-exist_.cfg
+check_exist_.cfg
 
 ### Grab values from config and change in .cfg
 CFG_PATH="/${DESTINATION_FOLDER}/subject_workload/.cfg"
