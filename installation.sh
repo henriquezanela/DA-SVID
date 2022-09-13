@@ -1,12 +1,12 @@
 #!/bin/bash
 
-slp=1
+slp=0.5
 
 function DA-SVID_inst(){
 skip_SPIRE=''
 skip_DOCKER=''
 skip_K8S=''
-skip_kubectl=''
+skip_KUBECTL=''
 
 ### Reading config file and picking options to SKIP
 echo -e "###Reading config file to pick what to install###\n"
@@ -35,10 +35,10 @@ do
     else
       trap "Error reading config file. Must be string TRUE or FALSE." EXIT
     fi
-  elif grep -q "kubectl" <<< "$LINE"; then
+  elif grep -q "KUBECTL" <<< "$LINE"; then
     TMP=${LINE#*=}
     if [ $TMP == 'TRUE' ] || [ $TMP == 'FALSE' ]; then
-      skip_kubectl=$TMP
+      skip_KUBECTL=$TMP
     else
       trap "Error reading config file. Must be string TRUE or FALSE." EXIT
     fi
@@ -47,6 +47,7 @@ do
   fi
 done < "config"
 echo -e "###DONE###\n"
+
 
 ### Installation section 
 LIB_PATH=$(pwd)"/lib"
@@ -72,11 +73,11 @@ if [ $skip_K8S == 'FALSE' ]; then
   echo -e "###Minikube installed###\n"
   sleep $slp
 fi
-if [ $skip_kubectl == 'FALSE' ]; then
-  echo -e "###Begin kubectl installation###\n"
+if [ $skip_KUBECTL == 'FALSE' ]; then
+  echo -e "###Begin KUBECTL installation###\n"
   sleep $slp
   sudo bash $LIB_PATH/install_kubectl.sh
-  echo -e "###kubectl installed###\n"
+  echo -e "###KUBECTL installed###\n"
   sleep $slp
 fi
 }
@@ -97,5 +98,5 @@ fi
 echo -e "###Add your user to docker group with root privileges###\n"
 echo -e "Copy the commands below and run them in another terminal"
 echo 'sudo usermod -aG docker $USER'
-echo 'su - $USER'
-read -rsn1 -p"\nNow everything should be fine."
+echo -e 'su - $USER\n'
+read -rsn1 -p"Now everything should be fine."
