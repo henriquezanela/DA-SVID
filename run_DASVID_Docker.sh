@@ -14,12 +14,12 @@ read -rsn1 -p"Now press any key to continue... "
 
 ### Create directory
 create_new_directory(){
-cd /
-if [ -d $DESTINATION_FOLDER ]; then
-  sudo mv $DESTINATION_FOLDER / "old_$(DESTINATION_FOLDER)"
+if [ -d /$DESTINATION_FOLDER ]; then
+  sudo mkdir "/old_${DESTINATION_FOLDER}"
+  sudo mv /$DESTINATION_FOLDER "/old_${DESTINATION_FOLDER}"
 fi
-sudo mkdir $DESTINATION_FOLDER
-sudo git clone https://github.com/marques-ma/DASVID_PoC_V0 -b docker_vr $DESTINATION_FOLDER
+sudo mkdir /$DESTINATION_FOLDER
+sudo git clone https://github.com/marques-ma/DASVID_PoC_V0 -b docker_vr /$DESTINATION_FOLDER
 }
 create_new_directory
 
