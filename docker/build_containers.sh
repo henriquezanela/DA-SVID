@@ -3,9 +3,10 @@
 DIRPATH=/DASVID_POC_DOCKER
 
 #docker stop $(docker ps -a -q)
-#docker rm $(docker stop $(docker ps -a -q))
+
 #docker rmi -f asserting-wl subject-wl middle-tier target-wl
-#docker rmi $(docker images -q)
+
+#docker rm $(docker stop $(docker ps -a -q)) && docker rmi $(docker images -q)
 
 cd "${DIRPATH}/Assertingwl-mTLS"
 docker build . -t asserting-wl
