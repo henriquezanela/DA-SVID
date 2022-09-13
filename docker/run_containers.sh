@@ -6,8 +6,7 @@ MT_port=''
 Target_port=''
 
 BASE_DIR=$PWD
-cd ..
-BASE_DIR=$PWD
+
 ## Read config file and copy values to VARs
 cp_data_config(){
 while IFS= read -r LINE

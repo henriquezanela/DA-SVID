@@ -6,6 +6,7 @@ function DA-SVID_inst(){
 skip_SPIRE=''
 skip_DOCKER=''
 skip_K8S=''
+skip_kubectl=''
 
 ### Reading config file and picking options to SKIP
 echo -e "###Reading config file to pick what to install###\n"
@@ -31,6 +32,13 @@ do
     TMP=${LINE#*=}
     if [ $TMP == 'TRUE' ] || [ $TMP == 'FALSE' ]; then
       skip_K8S=$TMP
+    else
+      trap "Error reading config file. Must be string TRUE or FALSE." EXIT
+    fi
+  elif grep -q "kubectl" <<< "$LINE"; then
+    TMP=${LINE#*=}
+    if [ $TMP == 'TRUE' ] || [ $TMP == 'FALSE' ]; then
+      skip_kubectl=$TMP
     else
       trap "Error reading config file. Must be string TRUE or FALSE." EXIT
     fi
@@ -62,6 +70,13 @@ if [ $skip_K8S == 'FALSE' ]; then
   sleep $slp
   sudo bash $LIB_PATH/install_k8s_spire.sh
   echo -e "###Minikube installed###\n"
+  sleep $slp
+fi
+if [ $skip_kubectl == 'FALSE' ]; then
+  echo -e "###Begin kubectl installation###\n"
+  sleep $slp
+  sudo bash $LIB_PATH/install_kubectl.sh
+  echo -e "###kubectl installed###\n"
   sleep $slp
 fi
 }

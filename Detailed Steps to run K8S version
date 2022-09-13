@@ -10,13 +10,12 @@ source ~/.bashrc
 ##########
 
 #2) Install Docker
-#sudo required for all
+#sudo required
 https://docs.docker.com/engine/install/ubuntu/
 https://docs.docker.com/engine/install/debian/
 add $USER to usermod docker
 su - $USER #should be non-sudo
 ##########
-
 #3) Install minikube	#https://minikube.sigs.k8s.io/docs/start/
 # sudo required
 cd /
@@ -25,17 +24,21 @@ sudo dpkg -i minikube_latest_amd64.deb
 rm minikube_latest_amd64.deb
 ##########
 
-#4) Run start_spire_env.sh
+#4) Install kubectl #https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/
+#
+
+#5) Run start_spire_env.sh
 Copy startenv.sh (marques) or start_spire_env.sh (lib/here) and put on /spire
-sudo bash script.sh
+cd /spire
+sudo bash <script.sh>
 ##########
 
 #5) Running the DA-SVID for K8S
-# sudo not required (when required it will be on the exact line with sudo)
+# sudo not required
 Copy config info into .cfg file in subject_workload
 Build containers (IF user added to docker group with usermod, sudo not required)
-run startk8s.sh		#MUST be without sudo
-run dasvid_entries.sh
-run startapp.sh #Must have minikube running
-#missing steps but close to perfection
-Run containers
+Run startk8s.sh		#MUST be without sudo
+Run dasvid_entries.sh
+Run startapp.sh #Must have minikube running
+
+Run containers with port-forward (example on last line on run_DASVID_K8S.sh)

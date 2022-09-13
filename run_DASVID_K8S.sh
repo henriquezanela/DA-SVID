@@ -105,13 +105,13 @@ sleep 2
 
 ### Running startk8s.sh
 echo "Running startk8s"
-sudo bash $BASE_DIR/k8s/startk8s.sh
+bash $BASE_DIR/k8s/startk8s.sh
 
 ### Create DASVID entries on kubernetes
 bash $BASE_DIR/lib/dasvid_entries.sh
 
 ### Running startapp.sh
-sudo bash $BASE_DIR/lib/startapp.sh
+sudo bash $BASE_DIR/k8s/startapp.sh
 
 #Run this for each asserting,middle tier, subject, target wl with proper ports and pod names
 #kubectl port-forward --address localhost,<IP> pod/<PODNAME> PORT:PORT

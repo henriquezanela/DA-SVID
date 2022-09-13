@@ -2,6 +2,7 @@
 Skip SPIRE Installation=FALSE
 Skip DOCKER Installation=FALSE
 Skip K8S Installation=FALSE
+Skip kubectl=FALSE
 ##########################
 ####Values here are examples (randomly generated) ####
 CLIENT_ID=PmoMOqvodfO90rz7lXuL
