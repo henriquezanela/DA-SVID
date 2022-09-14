@@ -48,7 +48,6 @@ do
 done < "config"
 echo -e "###DONE###\n"
 
-
 ### Installation section 
 LIB_PATH=$(pwd)"/lib"
 

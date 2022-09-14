@@ -26,6 +26,7 @@ After download the repository, it is necessary to change permission on all scrip
 ```bash
 sudo chmod +x -R *.sh && sudo chmod +x lib/*.sh
 ```
+0. **DO NOT** run any script with sudo. The proper locations to run as sudo are written on each script.
 
 1. Run **requirements.sh** if you do not have all required packages installed.
 
